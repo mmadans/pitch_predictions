@@ -11,4 +11,5 @@ wheels/
 
 # Other
 .ipynb_checkpoints/
+.DS_store/
 pitching.sqlite
