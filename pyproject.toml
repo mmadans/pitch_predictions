@@ -1,0 +1,16 @@
+[project]
+name = "pitching-analytics-project"
+version = "0.1.0"
+description = "Model to predict pitch selection based on game scenario"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.2.3",
+    "pybaseball>=2.2.7",
+    "scikit-learn>=1.6.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
