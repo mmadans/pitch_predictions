@@ -1,42 +1,49 @@
-# MLB Pitch Predicting Model
+# MLB Pitch Prediction Model  
 
-This model predicts if the pitcher decides to throw a fastball or off-speed pitch based on the game situation. 
+This model predicts whether a pitcher will throw a fastball or an off-speed pitch based on the game situation.  
 
-## Notebooks
+## Notebooks  
 
-There are 4 notebooks  used to pull raw data, clean and format, split into a test and training samples, and to finally train and evaluate the models. Comments are included within the files to explain the process. Most recent cell outputs for all notebooks (except download_data) are included to further show the process.
+There are four notebooks used to pull raw data, clean and format it, split it into training and test samples, and train and evaluate the models. Comments are included within the files to explain the process. The most recent cell outputs (except for `download_data`) are included to further demonstrate the workflow.  
 
-1. download_data
-    - Uses the pybaseball Python package to pull statcast data for the 2024 MLB Season
-2. clean_pitch
-    - Transforms raw data into structured output that contains key features needed for the final model.
-3. split_data
-    - Divides data into features and labels, and further splits into training, test, and value sets.
-4. model_fit
-    - Trains and evaluates a model to make pitch predictions.
+1. **download_data**  
+   - Uses the `pybaseball` Python package to pull Statcast data for the 2024 MLB season.  
 
-## Methodology
+2. **clean_pitch**  
+   - Transforms raw data into a structured format containing key features required for modeling.  
 
-Pitches are broadly classifed as either a **fastball** or **off-speed**. 
+3. **split_data**  
+   - Divides data into features and labels, then further splits it into training, test, and validation sets.  
 
-The following game scenarios are considered by the model:
-- Batter and Pitchcer are right or left handed
-- The inning of the at bat
-- The score differential
-- If the pitcher is behind (ex. 2-1), ahead (ex. 1-2), or even (2-2) in the batters count
-- If there are runners on any or all the bases\
-- The pitch type of the previous pitch
+4. **model_fit**  
+   - Trains and evaluates a model to predict pitch type.  
 
-The data is split into training and test subsets. 
+## Methodology  
 
-A RandomForestClassier is trained on the data, and then evaluated for a set of depth and estimator hyper parameters. The top 3 models are chosen, and further evaluted for their accuracy, precision, and recall.
+Pitches are broadly classified as either **fastballs** or **off-speed** pitches.  
 
-## Results
+The model considers the following game scenarios:  
 
-- All 3 models accurately predicted pitch type about 58% of the time. 
-- Considering MLB avg. Fastball usage is 57-58%, this is not much better than if someone were to just guest "fastball" every pitch
-    - To an extent, this may have been how the model was behaving. The precision for all models was quite low, indicating a large amount of false positives. 
-    - However, the recall for fastballs was very high, so the model did not miss many fastball pitches, probably from over-predicting that feature. 
-- Next steps would be to do more work profiling hitters and pitchers. Right now we consider pitchers and batters via their statcast ID.
-- It would be more powerful to group hitters and pitchers by their tedencies. 
-    - Ex. categorizing pitchers by offspeed usage, or hitters by how well they hit fastballs
+- Batter and pitcher handedness (right-handed or left-handed).  
+- Inning of the at-bat.  
+- Score differential.  
+- The pitcher's count: behind (e.g., `2-1`), ahead (e.g., `1-2`), or even (e.g., `2-2`).  
+- Presence of baserunners (on any or all bases).  
+- The type of the previous pitch.  
+
+The dataset is split into training and test subsets.  
+
+A `RandomForestClassifier` is trained and evaluated using different depth and estimator hyperparameters. The top three models are selected and further assessed for accuracy, precision, and recall.  
+
+## Results  
+
+- All three models predicted pitch type with approximately **58% accuracy**.  
+- Considering the MLB average fastball usage is **57-58%**, the model’s performance was only marginally better than always guessing "fastball."  
+- The precision for all models was quite low, indicating a high number of false positives.  
+- However, the recall for fastballs was very high, suggesting that the model correctly identified most fastballs but likely over-predicted them.  
+
+### Next Steps  
+- Improve the profiling of hitters and pitchers. Currently, the model only considers them by their Statcast ID.  
+- Group pitchers and hitters by tendencies rather than individual identities.  
+  - **Example:** Categorizing pitchers based on off-speed pitch usage.  
+  - **Example:** Categorizing hitters based on their performance against fastballs.
